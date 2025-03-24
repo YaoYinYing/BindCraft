@@ -56,9 +56,10 @@ conda env list | grep -w 'BindCraft' >/dev/null 2>&1 || { echo -e "Error: Conda 
 
 # Load newly created BindCraft environment
 echo -e "Loading BindCraft environment\n"
-source ${CONDA_BASE}/bin/activate ${CONDA_BASE}/envs/BindCraft || { echo -e "Error: Failed to activate the BindCraft environment."; exit 1; }
+CONDA_ENV_DIR=$(conda info -e |grep BindCraft | awk '{print $2}')
+source ${CONDA_BASE}/bin/activate ${CONDA_ENV_DIR} || { echo -e "Error: Failed to activate the BindCraft environment."; exit 1; }
 [ "$CONDA_DEFAULT_ENV" = "BindCraft" ] || { echo -e "Error: The BindCraft environment is not active."; exit 1; }
-echo -e "BindCraft environment activated at ${CONDA_BASE}/envs/BindCraft"
+echo -e "BindCraft environment activated at ${CONDA_ENV_DIR}"
 
 # install required conda packages
 echo -e "Instaling conda requirements\n"
